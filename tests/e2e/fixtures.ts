@@ -7,7 +7,10 @@ export const LIN: User = users.lin;
 
 // Browser noise that is expected: a fetch that gets a 401 is logged by Chromium and WebKit
 // as "Failed to load resource". The app handles 401 by redirecting to sign-in.
-const EXPECTED_CONSOLE = [/Failed to load resource.*401/, /status of 401/];
+const EXPECTED_CONSOLE = [/Failed to load resource.*401/, /status of 401/,
+  // Playwright injects a <style> to hide the caret when it takes screenshots; WebKit reports the
+  // page's CSP refusing it. It comes from the test harness, not the app.
+  /Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline'/];
 
 type Fixtures = {
   consoleErrors: string[];

@@ -110,6 +110,9 @@ async function ask(req, res, user) {
   event("meta", { thread_id: thread.id, sources });
 
   const words = answer.split(/(?<= )/);
+  // test-only: a cookie can slow the stream down, so a test can act mid-answer deterministically
+  const slow = process.env.APP_TEST === "1" && /(?:^|;\s*)token_ms=(\d+)/.exec(req.headers.cookie || "")?.[1];
+  const tokenMs = slow ? Math.min(Number(slow), 200) : TOKEN_MS;
   if (FAULTS.has("slow_first_token")) await sleep(2500);
   const buffered = FAULTS.has("no_stream");
   let out = "";
@@ -121,9 +124,9 @@ async function ask(req, res, user) {
       return res.end();
     }
     out += words[i];
-    if (!buffered) { event("token", { text: words[i] }); await sleep(TOKEN_MS); }
+    if (!buffered) { event("token", { text: words[i] }); await sleep(tokenMs); }
   }
-  if (buffered) { await sleep(TOKEN_MS * words.length); event("token", { text: out }); }
+  if (buffered) { await sleep(tokenMs * words.length); event("token", { text: out }); }
   thread.messages.push({ role: "assistant", content: out, sources });
   event("done", { thread_id: thread.id, tokens: words.length, stopped: closed });
   res.end();

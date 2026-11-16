@@ -5,14 +5,16 @@ test.beforeEach(async ({ page, signIn }) => {
   await page.goto("/");
 });
 
-test("Stop ends the answer where it is", async ({ page, ask }) => {
+test("Stop ends the answer where it is", async ({ page, ask, context, baseURL }) => {
+  // slow the stream (test-only cookie) so Stop lands mid-answer on every device and CI runner
+  await context.addCookies([{ name: "token_ms", value: "60", url: baseURL! }]);
   await ask(unique("Tell me about caching"));
   const answer = page.getByTestId("answer");
   await expect(answer).toContainText("Here is");                 // some text has arrived
   await page.getByRole("button", { name: "Stop" }).click();
   await expect(page.getByTestId("status")).toHaveText("Stopped");
   const frozen = await answer.textContent();
-  await page.waitForTimeout(600);                                   // > 40 more tokens if it kept going
+  await page.waitForTimeout(800);                                   // > 12 more tokens if it kept going
   await expect(answer).toHaveText(frozen!);
   expect(frozen!.length).toBeLessThan(300);
 });
