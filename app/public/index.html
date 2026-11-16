@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Answerly</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <a class="brand" href="/" data-link>Answerly</a>
+    <button class="menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav">☰</button>
+    <nav id="nav" aria-label="Main">
+      <a href="/" data-link>Ask</a>
+      <a href="/history" data-link>History</a>
+      <span class="who" data-testid="who"></span>
+      <button type="button" class="link" data-action="logout">Sign out</button>
+    </nav>
+  </header>
+  <main id="main" tabindex="-1"></main>
+  <div class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

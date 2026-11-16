@@ -1,0 +1,126 @@
+{
+  "_note": "Each fault is a deliberate bug in the app (APP_FAULTS). caught_by pins the exact tests that must fail on chromium-desktop + mobile-chrome; scripts/fault-matrix.mjs enforces it.",
+  "faults": {
+    "no_stream": {
+      "what": "the server buffers the whole answer and sends it at once",
+      "caught_by": [
+        "answer.spec.ts: answer streams in, it does not arrive all at once",
+        "controls.spec.ts: Stop ends the answer where it is"
+      ]
+    },
+    "citation_offbyone": {
+      "what": "citation [1] links to source 2 (an index off by one in the client)",
+      "caught_by": [
+        "answer.spec.ts: every citation links to the source it numbers"
+      ]
+    },
+    "double_submit": {
+      "what": "no in-flight guard, and the input is cleared only after the answer, so Enter then a click sends twice",
+      "caught_by": [
+        "answer.spec.ts: one submit sends exactly one request, even with Enter and a click"
+      ]
+    },
+    "console_error": {
+      "what": "a script error after each answer finishes",
+      "caught_by": [
+        "a11y.spec.ts: ask page and a finished answer have no serious accessibility violations",
+        "a11y.spec.ts: streaming answer is announced politely and marked busy while it streams",
+        "a11y.spec.ts: the whole ask flow works from the keyboard",
+        "answer.spec.ts: a follow-up stays in the same thread and uses the earlier question",
+        "answer.spec.ts: answer streams in, it does not arrive all at once",
+        "answer.spec.ts: every citation links to the source it numbers",
+        "answer.spec.ts: model output and questions are rendered as text, never as HTML",
+        "answer.spec.ts: one submit sends exactly one request, even with Enter and a click",
+        "auth.spec.ts: one user cannot open another user's thread",
+        "controls.spec.ts: Regenerate replaces the answer instead of adding a second one",
+        "controls.spec.ts: a shared link opens read-only for someone who is signed out",
+        "controls.spec.ts: a stream that breaks mid-answer shows an error, and Try again gives one clean answer",
+        "devtools.spec.ts: network: the answer is a real event stream, and nothing fails or leaves the site",
+        "devtools.spec.ts: performance: page load and time to first rendered word stay within budget",
+        "navigation.spec.ts: a thread survives a reload and appears in History",
+        "navigation.spec.ts: back and forward move between pages without a reload",
+        "responsive.spec.ts: buttons are at least 44px tall on touch devices",
+        "responsive.spec.ts: no horizontal scrolling on the ask page or an answer",
+        "responsive.spec.ts: the input stays in view after an answer on a short screen"
+      ]
+    },
+    "mobile_overflow": {
+      "what": "a 720px-wide banner on every screen size",
+      "caught_by": [
+        "responsive.spec.ts: no horizontal scrolling on the ask page or an answer"
+      ]
+    },
+    "a11y_low_contrast": {
+      "what": "secondary text colour fails WCAG AA contrast",
+      "caught_by": [
+        "a11y.spec.ts: ask page and a finished answer have no serious accessibility violations"
+      ]
+    },
+    "session_expiry_loses_question": {
+      "what": "an expired session drops the question being typed",
+      "caught_by": [
+        "auth.spec.ts: an expired session keeps the question the user was typing"
+      ]
+    },
+    "slow_first_token": {
+      "what": "2.5 s before the first word",
+      "caught_by": [
+        "answer.spec.ts: answer streams in, it does not arrive all at once",
+        "devtools.spec.ts: performance: page load and time to first rendered word stay within budget"
+      ]
+    },
+    "stop_ignored": {
+      "what": "Stop updates the label but the answer keeps streaming",
+      "caught_by": [
+        "controls.spec.ts: Stop ends the answer where it is"
+      ]
+    },
+    "retry_duplicates": {
+      "what": "Try again adds a second copy of the turn",
+      "caught_by": [
+        "controls.spec.ts: a stream that breaks mid-answer shows an error, and Try again gives one clean answer"
+      ]
+    },
+    "share_leaks_controls": {
+      "what": "a signed-out visitor of a share link gets an input box",
+      "caught_by": [
+        "controls.spec.ts: a shared link opens read-only for someone who is signed out"
+      ]
+    },
+    "xss_unescaped": {
+      "what": "the question is rendered as HTML",
+      "caught_by": [
+        "answer.spec.ts: model output and questions are rendered as text, never as HTML"
+      ]
+    },
+    "wrong_content_type": {
+      "what": "the stream is served as text/plain",
+      "caught_by": [
+        "devtools.spec.ts: network: the answer is a real event stream, and nothing fails or leaves the site"
+      ]
+    },
+    "midstream_error": {
+      "what": "every first attempt breaks after 30 words",
+      "caught_by": [
+        "a11y.spec.ts: ask page and a finished answer have no serious accessibility violations",
+        "a11y.spec.ts: streaming answer is announced politely and marked busy while it streams",
+        "a11y.spec.ts: the whole ask flow works from the keyboard",
+        "answer.spec.ts: a follow-up stays in the same thread and uses the earlier question",
+        "answer.spec.ts: answer streams in, it does not arrive all at once",
+        "answer.spec.ts: every citation links to the source it numbers",
+        "answer.spec.ts: model output and questions are rendered as text, never as HTML",
+        "answer.spec.ts: one submit sends exactly one request, even with Enter and a click",
+        "auth.spec.ts: one user cannot open another user's thread",
+        "controls.spec.ts: Regenerate replaces the answer instead of adding a second one",
+        "controls.spec.ts: a shared link opens read-only for someone who is signed out",
+        "devtools.spec.ts: network: the answer is a real event stream, and nothing fails or leaves the site",
+        "devtools.spec.ts: performance: page load and time to first rendered word stay within budget",
+        "navigation.spec.ts: a thread survives a reload and appears in History",
+        "navigation.spec.ts: back and forward move between pages without a reload",
+        "responsive.spec.ts: buttons are at least 44px tall on touch devices",
+        "responsive.spec.ts: no horizontal scrolling on the ask page or an answer",
+        "responsive.spec.ts: the input stays in view after an answer on a short screen"
+      ]
+    }
+  }
+}

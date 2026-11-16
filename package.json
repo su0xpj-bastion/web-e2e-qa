@@ -1,0 +1,19 @@
+{
+  "name": "web-e2e-qa",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "app": "node app/server.mjs",
+    "test": "playwright test",
+    "test:chromium": "playwright test --project=chromium-desktop",
+    "test:visual": "playwright test --project=visual",
+    "faults": "node scripts/fault-matrix.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.11.0",
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^24.10.1",
+    "typescript": "^5.9.3"
+  }
+}

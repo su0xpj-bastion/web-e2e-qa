@@ -1,0 +1,5 @@
+{
+  "_note": "Demo accounts for the local test app only (app/server.mjs). Not real credentials.",
+  "ada": { "email": "ada@example.test", "password": "correct-horse-test", "name": "Ada" },
+  "lin": { "email": "lin@example.test", "password": "battery-staple-test", "name": "Lin" }
+}

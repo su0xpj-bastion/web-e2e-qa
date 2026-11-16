@@ -1,0 +1,32 @@
+name: Bug report
+description: Something in the web app is broken
+labels: [bug]
+body:
+  - type: input
+    id: summary
+    attributes: { label: Summary, description: "One line: what is wrong, where. e.g. 'Skip link doesn't move focus in Firefox'" }
+    validations: { required: true }
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options: ["S1 - blocks a core flow for many users", "S2 - core flow degraded, workaround exists", "S3 - minor / cosmetic"]
+    validations: { required: true }
+  - type: textarea
+    id: steps
+    attributes: { label: Steps to reproduce, description: Numbered, starting from a clean state., value: "1.\n2.\n3." }
+    validations: { required: true }
+  - type: textarea
+    id: expected
+    attributes: { label: Expected vs actual }
+    validations: { required: true }
+  - type: textarea
+    id: env
+    attributes: { label: Environment, description: "Browser + version, OS, viewport/device, build or commit, signed in or not" }
+    validations: { required: true }
+  - type: textarea
+    id: evidence
+    attributes: { label: Evidence, description: "Playwright trace, HAR, console errors, screenshot or video. Link the failing test if there is one." }
+  - type: textarea
+    id: hypothesis
+    attributes: { label: Root-cause hypothesis and scope, description: "What you think is happening, which browsers/devices are affected, which are not." }
