@@ -1,5 +1,7 @@
 # web-e2e-qa
 
+> **Moved.** This project now lives in [app-quality-lab/web-e2e-qa](https://github.com/su0xpj-bastion/app-quality-lab/tree/main/web-e2e-qa), where it is maintained and tested. This repository is archived and read-only.
+
 End-to-end QA for a streaming AI-answer web app, in **TypeScript + Playwright**: the same suite runs on **Chromium, Firefox and WebKit**, on desktop, phone and tablet viewports, and checks what you would otherwise check by hand in DevTools: console errors, the network panel, and performance timings. Every test has a deliberately injected UI bug it must catch, and a script proves it.
 
 The app under test, **Answerly** (`app/`), is small but has the parts that break in real AI products: answers streamed over Server-Sent Events, numbered citations, follow-up questions in a thread, Stop / Regenerate / Try again, share links, history and deep links, and sign-in with session expiry.
